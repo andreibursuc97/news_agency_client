@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class Controller {
 
@@ -32,7 +33,15 @@ public class Controller {
 
         client.sendCommand(logareAdmin.getText());
 
-        FXMLLoader loader = new FXMLLoader();
+        System.out.println(client.getReusit());
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if(client.getReusit()==true)
+        {FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getClassLoader().getResource("View/Admin.fxml"));
         loader.setController(adminController);
         adminController.addClient(username.getText(),client);
@@ -45,8 +54,8 @@ public class Controller {
         Scene scene=new Scene(root);
         stage.setScene(scene);
         controller.setUsernameText(username.getText());
-        stage.show();
-
+        stage.show();}
+        else{System.out.println("Failed");}
     }
 
 
