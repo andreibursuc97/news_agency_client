@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="257.0" prefWidth="426.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controller">
+   <children>
+      <TextField fx:id="username" layoutX="121.0" layoutY="103.0" prefHeight="25.0" prefWidth="250.0" />
+      <Label layoutX="45.0" layoutY="30.0" prefHeight="45.0" prefWidth="142.0" text="Bine ati venit">
+         <font>
+            <Font name="Gill Sans MT" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="45.0" layoutY="103.0" prefHeight="25.0" prefWidth="76.0" text="Username">
+         <font>
+            <Font name="Comic Sans MS" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="45.0" layoutY="141.0" prefHeight="25.0" prefWidth="76.0" text="Parola">
+         <font>
+            <Font name="Comic Sans MS" size="14.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="parola" layoutX="121.0" layoutY="141.0" prefHeight="25.0" prefWidth="250.0" />
+      <Button fx:id="logare" layoutX="134.0" layoutY="191.0" mnemonicParsing="false" text="Logare user" />
+      <Button fx:id="logareAdmin" layoutX="257.0" layoutY="191.0" mnemonicParsing="false" onAction="#LogareAdmin" prefHeight="25.0" prefWidth="99.0" text="Logare admin" />
+   </children>
+</AnchorPane>
