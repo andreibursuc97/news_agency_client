@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ServerHandler extends Thread {
 
@@ -56,24 +57,48 @@ public class ServerHandler extends Thread {
                 switch (received) {
                     case "UsernameGresit":
                         System.out.println("Ai introdus un username gresit!");
-                        client.setReusit(1);
+                        client.setReusit(new AtomicInteger(1));
                         dos.writeUTF("Exit");
                         break;
                     case "ParolaGresita":
                         System.out.println("Ai introdus o parola gresita!");
-                        client.setReusit(2);
+                        client.setReusit(new AtomicInteger(2));
                         dos.writeUTF("Exit");
                         break;
                     case "DejaLogat":
-                        client.setReusit(3);
+                        client.setReusit(new AtomicInteger(3));
                         dos.writeUTF("Exit");
                         break;
                     case "LogareReusita":
                         System.out.println("Logare reusita");
-                        client.setReusit(0);
+                        client.setReusit(new AtomicInteger(0));
+                        break;
+                    case "ExistaDejaJurnalist":
+                        client.setReusit(new AtomicInteger(4));
+                        break;
+                    case "jurnalistAdaugat":
+                        client.setReusit(new AtomicInteger(5));
+                        break;
+                    case "UsernameGresitJurnalist":
+                        //System.out.println("Ai introdus un username gresit!");
+                        client.setReusit(new AtomicInteger(6));
+                        dos.writeUTF("Exit");
+                        break;
+                    case "ParolaGresitaJurnalist":
+                        System.out.println("Ai introdus o parola gresita!");
+                        client.setReusit(new AtomicInteger(7));
+                        dos.writeUTF("Exit");
+                        break;
+                    case "JurnalistDejaLogat":
+                        client.setReusit(new AtomicInteger(8));
+                        dos.writeUTF("Exit");
+                        break;
+                    case "LogareReusitaJurnalist":
+                        //System.out.println("Logare reusita");
+                        client.setReusit(new AtomicInteger(9));
                         break;
                     default:
-                        continue;
+
                 }
             } catch (IOException e) {
                 e.printStackTrace();

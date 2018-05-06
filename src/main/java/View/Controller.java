@@ -3,6 +3,7 @@ package View;
 import ClientManager.Client;
 import ClientManager.Encrypt;
 import Model.AdminEntity;
+import Model.JurnalistEntity;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,6 +23,7 @@ public class Controller {
     @FXML
     private TextField parola;
     @FXML private Button logareAdmin;
+    @FXML private Button logare;
 
     //AdminController adminController=new AdminController();
     //HashMap<Scene,Client> windows=new HashMap();
@@ -32,7 +34,7 @@ public class Controller {
         client.setAdminEntity(adminEntity);
         System.out.println(logareAdmin.getText());
 
-        client.sendCommand(logareAdmin.getText());
+        client.sendCommand(logareAdmin.getText(),"admin");
 
         System.out.println(client.getReusit());
         try {
@@ -41,7 +43,7 @@ public class Controller {
             e.printStackTrace();
         }
 
-        if(client.getReusit()==0)
+        if(client.getReusit().get()==0)
         {FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getClassLoader().getResource("View/Admin.fxml"));
         AdminController adminController=new AdminController();
@@ -61,7 +63,7 @@ public class Controller {
         else{System.out.println("Failed");}
 
         Alert alert;
-        if(client.getReusit()==1)
+        if(client.getReusit().get()==1)
         {
             //Dialogs.showWarningDialog(new Stage(),"Ai introdus un username gresit!","Eroare Logare","Avertisment");
             alert=new Alert(Alert.AlertType.ERROR);
@@ -72,7 +74,7 @@ public class Controller {
             //Action
         }
 
-        if(client.getReusit()==2)
+        if(client.getReusit().get()==2)
         {
             alert=new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Eroare de logare");
@@ -82,7 +84,7 @@ public class Controller {
             //Action
         }
 
-        if(client.getReusit()==3)
+        if(client.getReusit().get()==3)
         {
             alert=new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Eroare de logare");
@@ -94,7 +96,73 @@ public class Controller {
 
     }
 
+    public void LogareJurnalist(javafx.event.ActionEvent actionEvent) throws IOException {
+        Client client=new Client(1);
+        Encrypt code= new Encrypt();
+        JurnalistEntity jurnalistEntity=new JurnalistEntity(username.getText(),code.code(parola.getText()));
+        client.setJurnalistEntity(jurnalistEntity);
+        //System.out.println(logare.getText());
 
+        client.sendCommand(logare.getText(),"jurnalist");
+
+        System.out.println(client.getReusit());
+        try {
+            TimeUnit.MILLISECONDS.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if(client.getReusit().get()==9)
+        {FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getClassLoader().getResource("View/Jurnalist.fxml"));
+            JurnalistController jurnalistController=new JurnalistController();
+            loader.setController(jurnalistController);
+            jurnalistController.addClient(username.getText(),client);
+
+            Parent root = loader.load();
+            loader.setRoot(root);
+            JurnalistController jurnalistController1=loader.getController();
+            Stage stage = new Stage();
+            stage.setTitle("Meniu Jurnalist");
+            stage.setOnCloseRequest((event) -> event.consume());
+            Scene scene=new Scene(root);
+            stage.setScene(scene);
+            jurnalistController1.setUsernameText(username.getText());
+            stage.show();}
+
+        Alert alert;
+        if(client.getReusit().get()==6)
+        {
+            //Dialogs.showWarningDialog(new Stage(),"Ai introdus un username gresit!","Eroare Logare","Avertisment");
+            alert=new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Eroare de logare");
+            alert.setHeaderText("A aparut o problema in timpul logarii");
+            alert.setContentText("Ai introdus un username gresit");
+            alert.showAndWait();
+            //Action
+        }
+
+        if(client.getReusit().get()==7)
+        {
+            alert=new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Eroare de logare");
+            alert.setContentText("Ai introdus o parola gresita");
+            alert.setHeaderText("A aparut o problema in timpul logarii");
+            alert.showAndWait();
+            //Action
+        }
+
+        if(client.getReusit().get()==8)
+        {
+            alert=new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Eroare de logare");
+            alert.setContentText("Acest user este deja logat!");
+            alert.setHeaderText("A aparut o problema in timpul logarii");
+            alert.showAndWait();
+            //Action
+        }
+
+    }
 
 
 }

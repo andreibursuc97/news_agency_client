@@ -11,6 +11,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Client
 {
@@ -24,7 +25,7 @@ public class Client
     Socket s;
     DataInputStream dis;
     DataOutputStream dos;
-    int reusit;
+    AtomicInteger reusit=new AtomicInteger(0);
 
     public void setAdminEntity(AdminEntity adminEntity) {
         this.adminEntity = adminEntity;
@@ -42,11 +43,11 @@ public class Client
         this.jurnalistEntity = jurnalistEntity;
     }
 
-    public int getReusit() {
+    public AtomicInteger getReusit() {
         return reusit;
     }
 
-    public void setReusit(int reusit) {
+    public void setReusit(AtomicInteger reusit) {
         this.reusit = reusit;
     }
 
@@ -74,7 +75,7 @@ public class Client
     }
 
 
-public void sendCommand(String comanda)
+public void sendCommand(String comanda,String objectType)
 {
     //Encrypt encrypt=new Encrypt();
     //JurnalistEntity jurnalistEntity=new JurnalistEntity(1,"andrei","Andrei Bursuc",encrypt.code("1234"));
@@ -82,9 +83,17 @@ public void sendCommand(String comanda)
     Gson gson=new Gson();
 
     try {
-        dos.writeUTF(comanda+"\n"+gson.toJson(adminEntity));
-        // printing date or time as requested by client
-
+        switch(objectType) {
+            case "admin":
+                dos.writeUTF(comanda + "\n" + gson.toJson(adminEntity));
+                break;
+            case "jurnalist":
+                dos.writeUTF(comanda + "\n" + gson.toJson(jurnalistEntity));
+                break;
+            default:
+                dos.writeUTF(comanda);
+            // printing date or time as requested by client
+        }
 
     } catch (IOException e) {
         e.printStackTrace();

@@ -19,6 +19,22 @@ public class JurnalistEntity {
         this.parola = parola;
     }
 
+    public JurnalistEntity(String username, String nume, byte[] parola) {
+        this.id = id;
+        this.username = username;
+        this.nume = nume;
+        this.parola = parola;
+    }
+
+    public JurnalistEntity(String username, byte[] parola) {
+        this.username = username;
+        this.parola = parola;
+    }
+
+    public JurnalistEntity(String username) {
+        this.username = username;
+    }
+
     @Id
     @Column(name = "id")
     public int getId() {

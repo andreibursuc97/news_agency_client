@@ -26,7 +26,7 @@
          </font>
       </Label>
       <PasswordField fx:id="parola" layoutX="121.0" layoutY="141.0" prefHeight="25.0" prefWidth="250.0" />
-      <Button fx:id="logare" layoutX="134.0" layoutY="191.0" mnemonicParsing="false" text="Logare user" />
+      <Button fx:id="logare" layoutX="134.0" layoutY="191.0" mnemonicParsing="false" onAction="#LogareJurnalist" text="Logare jurnalist" />
       <Button fx:id="logareAdmin" layoutX="257.0" layoutY="191.0" mnemonicParsing="false" onAction="#LogareAdmin" prefHeight="25.0" prefWidth="99.0" text="Logare admin" />
    </children>
 </AnchorPane>
