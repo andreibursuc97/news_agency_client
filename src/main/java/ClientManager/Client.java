@@ -24,7 +24,7 @@ public class Client
     Socket s;
     DataInputStream dis;
     DataOutputStream dos;
-    Boolean reusit;
+    int reusit;
 
     public void setAdminEntity(AdminEntity adminEntity) {
         this.adminEntity = adminEntity;
@@ -42,11 +42,11 @@ public class Client
         this.jurnalistEntity = jurnalistEntity;
     }
 
-    public Boolean getReusit() {
+    public int getReusit() {
         return reusit;
     }
 
-    public void setReusit(Boolean reusit) {
+    public void setReusit(int reusit) {
         this.reusit = reusit;
     }
 

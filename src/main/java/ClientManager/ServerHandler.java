@@ -56,16 +56,23 @@ public class ServerHandler extends Thread {
                 switch (received) {
                     case "UsernameGresit":
                         System.out.println("Ai introdus un username gresit!");
-                        client.setReusit(false);
+                        client.setReusit(1);
                         dos.writeUTF("Exit");
                         break;
                     case "ParolaGresita":
                         System.out.println("Ai introdus o parola gresita!");
-                        client.setReusit(false);
+                        client.setReusit(2);
                         dos.writeUTF("Exit");
                         break;
+                    case "DejaLogat":
+                        client.setReusit(3);
+                        dos.writeUTF("Exit");
+                        break;
+                    case "LogareReusita":
+                        System.out.println("Logare reusita");
+                        client.setReusit(0);
+                        break;
                     default:
-                        client.setReusit(true);
                         continue;
                 }
             } catch (IOException e) {

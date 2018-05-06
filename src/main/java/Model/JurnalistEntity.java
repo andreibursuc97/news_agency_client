@@ -4,12 +4,13 @@ import javax.persistence.*;
 import java.util.Arrays;
 
 @Entity
-@Table(name = "jurnalist", schema = "agentie_presa")
+@Table(name = "jurnalist", schema = "agentie_presa", catalog = "")
 public class JurnalistEntity {
     private int id;
     private String username;
     private String nume;
     private byte[] parola;
+    private Byte logat;
 
     public JurnalistEntity(int id, String username, String nume, byte[] parola) {
         this.id = id;
@@ -80,5 +81,15 @@ public class JurnalistEntity {
         result = 31 * result + (nume != null ? nume.hashCode() : 0);
         result = 31 * result + Arrays.hashCode(parola);
         return result;
+    }
+
+    @Basic
+    @Column(name = "logat")
+    public Byte getLogat() {
+        return logat;
+    }
+
+    public void setLogat(Byte logat) {
+        this.logat = logat;
     }
 }
