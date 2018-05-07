@@ -20,7 +20,7 @@
             <Font name="Comic Sans MS" size="14.0" />
          </font>
       </Text>
-      <TableView layoutX="228.0" layoutY="35.0" prefHeight="313.0" prefWidth="292.0">
+      <TableView fx:id="articolEntityTableView" layoutX="228.0" layoutY="35.0" prefHeight="313.0" prefWidth="292.0">
         <columns>
           <TableColumn fx:id="idArticol" minWidth="0.0" prefWidth="46.0" text="Id" />
           <TableColumn fx:id="titluArticol" prefWidth="84.0" text="Ttilu" />

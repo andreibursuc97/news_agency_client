@@ -17,7 +17,7 @@ public class JurnalistController extends Observer {
     @FXML
     private javafx.scene.text.Text usernameText;
     private HashMap<String, Client> clients=new HashMap<>();
-    @FXML private TableView<ArticolEntity> articolEntityTabableView;
+    @FXML private TableView<ArticolEntity> articolEntityTableView;
     @FXML private TableColumn<ArticolEntity,Integer> idArticol;
     @FXML private TableColumn<ArticolEntity,String> titluArticol;
     @FXML private TableColumn<ArticolEntity, String> abstractArticol;
