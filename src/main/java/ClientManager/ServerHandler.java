@@ -1,9 +1,14 @@
 package ClientManager;
 
+import Model.ArticolEntity;
+import com.google.gson.Gson;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ServerHandler extends Thread {
@@ -38,6 +43,7 @@ public class ServerHandler extends Thread {
 
                 String[] vectReceived=received.split("\n");
                 received=vectReceived[0];
+                Gson gson=new Gson();
 
                 System.out.println(received);
                 //System.out.println(received+" "+vectReceived[1]);
@@ -97,6 +103,15 @@ public class ServerHandler extends Thread {
                         //System.out.println("Logare reusita");
                         client.setReusit(new AtomicInteger(9));
                         break;
+                    case "Succes inserare articol":
+                        //System.out.println("Logare reusita");
+                        client.setReusit(new AtomicInteger(10));
+                        break;
+                    case "articole":
+                        System.out.println(vectReceived[1]);
+                        client.setArticolEntities(stringToArray(vectReceived[1],ArticolEntity[].class));
+                        System.out.println(vectReceived[1]);
+                        break;
                     default:
 
                 }
@@ -114,6 +129,11 @@ public class ServerHandler extends Thread {
         }catch(IOException e){
             e.printStackTrace();
         }
+    }
+
+    public static <T> List<T> stringToArray(String s, Class<T[]> clazz) {
+        T[] arr = new Gson().fromJson(s, clazz);
+        return Arrays.asList(arr); //or return Arrays.asList(new Gson().fromJson(s, clazz)); for a one-liner
     }
 
 }

@@ -11,6 +11,30 @@ public class ArticolEntity {
     private String autor;
     private String continut;
 
+    public ArticolEntity(int id, String titlu, String abstractArticol) {
+        this.id = id;
+        this.titlu = titlu;
+        this.abstractArticol = abstractArticol;
+    }
+
+    public ArticolEntity(int id, String titlu, String abstractArticol, String autor, String continut) {
+        this.id = id;
+        this.titlu = titlu;
+        this.abstractArticol = abstractArticol;
+        this.autor = autor;
+        this.continut = continut;
+    }
+
+    public ArticolEntity(String titlu, String abstractArticol, String autor, String continut) {
+        this.titlu = titlu;
+        this.abstractArticol = abstractArticol;
+        this.autor = autor;
+        this.continut = continut;
+    }
+
+    public ArticolEntity() {
+    }
+
     @Id
     @Column(name = "id")
     public int getId() {

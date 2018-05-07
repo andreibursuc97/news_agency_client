@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Arrays;
 
 @Entity
-@Table(name = "jurnalist", schema = "agentie_presa", catalog = "")
+@Table(name = "jurnalist", schema = "agentie_presa")
 public class JurnalistEntity {
     private int id;
     private String username;
@@ -33,6 +33,9 @@ public class JurnalistEntity {
 
     public JurnalistEntity(String username) {
         this.username = username;
+    }
+
+    public JurnalistEntity() {
     }
 
     @Id

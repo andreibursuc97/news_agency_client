@@ -11,6 +11,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Client
@@ -19,6 +20,7 @@ public class Client
     ArticoleInruditeEntity articoleInruditeEntity;
     ArticolEntity articolEntity;
     JurnalistEntity jurnalistEntity;
+    List<ArticolEntity> articolEntities;
     String comanda;
     int id;
     InetAddress ip;
@@ -26,6 +28,15 @@ public class Client
     DataInputStream dis;
     DataOutputStream dos;
     AtomicInteger reusit=new AtomicInteger(0);
+
+
+    public void setArticolEntities(List<ArticolEntity> articolEntities) {
+        this.articolEntities = articolEntities;
+    }
+
+    public List<ArticolEntity> getArticolEntities() {
+        return articolEntities;
+    }
 
     public void setAdminEntity(AdminEntity adminEntity) {
         this.adminEntity = adminEntity;
@@ -89,6 +100,9 @@ public void sendCommand(String comanda,String objectType)
                 break;
             case "jurnalist":
                 dos.writeUTF(comanda + "\n" + gson.toJson(jurnalistEntity));
+                break;
+            case "articol":
+                dos.writeUTF(comanda + "\n" + gson.toJson(articolEntity));
                 break;
             default:
                 dos.writeUTF(comanda);

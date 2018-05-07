@@ -107,28 +107,12 @@ public class Controller {
 
 
         try {
-            TimeUnit.MILLISECONDS.sleep(300);
+            TimeUnit.MILLISECONDS.sleep(800);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         System.out.println(client.getReusit());
-        if(client.getReusit().get()==9)
-        {FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getClassLoader().getResource("View/Jurnalist.fxml"));
-            JurnalistController jurnalistController=new JurnalistController();
-            loader.setController(jurnalistController);
-            jurnalistController.addClient(username.getText(),client);
 
-            Parent root = loader.load();
-            loader.setRoot(root);
-            JurnalistController jurnalistController1=loader.getController();
-            Stage stage = new Stage();
-            stage.setTitle("Meniu Jurnalist");
-            stage.setOnCloseRequest((event) -> event.consume());
-            Scene scene=new Scene(root);
-            stage.setScene(scene);
-            jurnalistController1.setUsernameText(username.getText());
-            stage.show();}
 
         Alert alert;
         if(client.getReusit().get()==6)
@@ -161,6 +145,25 @@ public class Controller {
             alert.showAndWait();
             //Action
         }
+
+        if(client.getReusit().get()==9)
+        {FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getClassLoader().getResource("View/Jurnalist.fxml"));
+            JurnalistController jurnalistController=new JurnalistController();
+            loader.setController(jurnalistController);
+            jurnalistController.addClient(username.getText(),client);
+            //jurnalistController.setUsernameText(username.getText());
+            Parent root = loader.load();
+            loader.setRoot(root);
+            JurnalistController jurnalistController1=loader.getController();
+            Stage stage = new Stage();
+            stage.setTitle("Meniu Jurnalist");
+            stage.setOnCloseRequest((event) -> event.consume());
+            Scene scene=new Scene(root);
+            stage.setScene(scene);
+            jurnalistController1.setUsernameText(username.getText());
+            jurnalistController1.setItems();
+            stage.show();}
 
     }
 

@@ -25,9 +25,9 @@ public class Start extends Application {
         primaryStage.show();
         /*Client client=new Client(1);
         Encrypt code=new Encrypt();
-        AdminEntity adminEntity=new AdminEntity("Admin2",code.code("1234"));
+        AdminEntity adminEntity=new AdminEntity("Admin",code.code("1234"));
         client.setAdminEntity(adminEntity);
-        client.sendCommand("AdminInsert");
+        client.sendCommand("AdminInsert","admin");
         client.inchide();*/
         //
     }

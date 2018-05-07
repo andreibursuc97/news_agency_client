@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Arrays;
 
 @Entity
-@Table(name = "admin", schema = "agentie_presa", catalog = "")
+@Table(name = "admin", schema = "agentie_presa")
 public class AdminEntity {
     private int id;
     private String username;
@@ -18,6 +18,9 @@ public class AdminEntity {
 
     public AdminEntity(String username) {
         this.username = username;
+    }
+
+    public AdminEntity() {
     }
 
     @Id

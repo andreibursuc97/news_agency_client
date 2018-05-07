@@ -68,7 +68,7 @@ public class AdminController {
 
         if(client.getReusit().get()==5)
         {
-            alert=new Alert(Alert.AlertType.CONFIRMATION);
+            alert=new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Prelucrare date");
             alert.setHeaderText("Adaugare de jurnalist nou");
             alert.setContentText("Opearatiunea a reusit cu succes!");
