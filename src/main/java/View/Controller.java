@@ -105,13 +105,13 @@ public class Controller {
 
         client.sendCommand(logare.getText(),"jurnalist");
 
-        System.out.println(client.getReusit());
+
         try {
-            TimeUnit.MILLISECONDS.sleep(500);
+            TimeUnit.MILLISECONDS.sleep(300);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
+        System.out.println(client.getReusit());
         if(client.getReusit().get()==9)
         {FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("View/Jurnalist.fxml"));
