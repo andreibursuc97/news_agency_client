@@ -10,6 +10,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
+import javafx.scene.web.WebView;
 
 import java.net.URL;
 import java.util.HashMap;
@@ -31,6 +32,8 @@ public class CititorController extends Observer implements Initializable {
     @FXML private TableColumn<ArticolEntity,Integer> idArticolInrudit;
     @FXML private TableColumn<ArticolEntity,String> titluArticolInrudit;
     @FXML private TableColumn<ArticolEntity, String> continutAbstractArticolInrudit;
+
+    @FXML private WebView webViewArticle;
 
     Subject subject;
     boolean updated=false;
@@ -65,15 +68,27 @@ public class CititorController extends Observer implements Initializable {
         //continutAbstractArticol=new TableColumn<>("Abstract");
         continutAbstractArticolInrudit.setCellValueFactory(new PropertyValueFactory<>("AbstractArticol"));
         articolEntityTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) ->selecteazaArticol());
+        articolInruditEntityTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) ->selecteazaArticolInrudit());
     }
 
     public void selecteazaArticol()
     {
         ArticolEntity articolEntity=articolEntityTableView.getSelectionModel().getSelectedItem();
         articolInruditEntityTableView.setItems(getArticlesInrudite(articolEntity));
+        webViewArticle.getEngine().loadContent(articolEntity.getContinut());
         //Client client=clients.get(usernameText.getText());
 
         //continutArea.setText(client.getArticolEntities().get(articolEntity.getId()-1).getContinut());
+    }
+
+    public void selecteazaArticolInrudit()
+    {
+        ArticolEntity articolEntity=articolInruditEntityTableView.getSelectionModel().getSelectedItem();
+        if(articolEntity!=null)
+        {
+            webViewArticle.getEngine().loadContent(articolEntity.getContinut());
+        }
+
     }
 
     public ObservableList<ArticolEntity> getArticlesInrudite(ArticolEntity articolEntity)

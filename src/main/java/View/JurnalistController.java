@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
+import javafx.scene.web.HTMLEditor;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -32,8 +33,10 @@ public class JurnalistController extends Observer implements Initializable {
     TextField autorField;
     @FXML
     TextArea abstractArea;
+
+
     @FXML
-    TextArea continutArea;
+    HTMLEditor htmlTextEditor;
 
     @FXML
             private ListView<String> listArticles;
@@ -86,7 +89,7 @@ public class JurnalistController extends Observer implements Initializable {
     public void adaugaArticol(javafx.event.ActionEvent actionEvent)
     {
         Client client=clients.get(usernameText.getText());
-        ArticolEntity articolEntity=new ArticolEntity(titluField.getText(),abstractArea.getText(),autorField.getText(),continutArea.getText());
+        ArticolEntity articolEntity=new ArticolEntity(titluField.getText(),abstractArea.getText(),autorField.getText(),htmlTextEditor.getHtmlText());
         client.setArticolEntity(articolEntity);
         List<ArticolEntity> list=new ArrayList<>();
         for(String s : listArticles.getSelectionModel().getSelectedItems())
@@ -117,7 +120,7 @@ public class JurnalistController extends Observer implements Initializable {
     {
         //articolEntityTableView.getSelectionModel().clearSelection();
         Client client=clients.get(usernameText.getText());
-        ArticolEntity articolEntity=new ArticolEntity(Integer.parseInt(idField.getText()),titluField.getText(),abstractArea.getText(),autorField.getText(),continutArea.getText());
+        ArticolEntity articolEntity=new ArticolEntity(Integer.parseInt(idField.getText()),titluField.getText(),abstractArea.getText(),autorField.getText(),htmlTextEditor.getHtmlText());
         client.setArticolEntity(articolEntity);
         client.sendCommand("Update articol","articol");
 
@@ -161,6 +164,7 @@ public class JurnalistController extends Observer implements Initializable {
         //continutAbstractArticol=new TableColumn<>("Abstract");
         continutAbstractArticolInrudit.setCellValueFactory(new PropertyValueFactory<>("AbstractArticol"));
         articolEntityTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) ->selecteazaArticol());
+        articolInruditEntityTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) ->selecteazaArticolInrudit());
     }
 
     public void setItems()
@@ -183,9 +187,18 @@ public class JurnalistController extends Observer implements Initializable {
             titluField.setText(articolEntity.getTitlu());
             autorField.setText(articolEntity.getAutor());
             abstractArea.setText(articolEntity.getAbstractArticol());
-            continutArea.setText(articolEntity.getContinut());
+            htmlTextEditor.setHtmlText(articolEntity.getContinut());
         }
         //continutArea.setText(client.getArticolEntities().get(articolEntity.getId()-1).getContinut());
+    }
+
+    public void selecteazaArticolInrudit()
+    {
+        ArticolEntity articolEntity=articolInruditEntityTableView.getSelectionModel().getSelectedItem();
+        if(articolEntity!=null)
+        {
+            htmlTextEditor.setHtmlText(articolEntity.getContinut());
+        }
     }
 
     public ObservableList<ArticolEntity> getArticlesInrudite(ArticolEntity articolEntity)
