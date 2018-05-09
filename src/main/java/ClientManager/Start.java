@@ -23,12 +23,12 @@ public class Start extends Application {
         primaryStage.setTitle("Login");
         primaryStage.setScene(new Scene(root, 450, 275));
         primaryStage.show();
-        /*Client client=new Client(1);
-        Encrypt code=new Encrypt();
-        AdminEntity adminEntity=new AdminEntity("Admin",code.code("1234"));
-        client.setAdminEntity(adminEntity);
-        client.sendCommand("AdminInsert","admin");
-        client.inchide();*/
+        //Client client=new Client(1);
+        //Encrypt code=new Encrypt();
+        //AdminEntity adminEntity=new AdminEntity("Admin",code.code("1234"));
+        //client.setAdminEntity(adminEntity);
+        //client.sendCommand("dummy","");
+        //client.inchide();
         //
     }
 }

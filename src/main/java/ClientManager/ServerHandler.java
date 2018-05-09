@@ -55,7 +55,7 @@ public class ServerHandler extends Thread {
                     System.out.println("Connection closed");
                     break;
                 }
-                //System.out.println(received);
+                System.out.println(received);
                 // creating Date object
 
                 // write on output stream based on the

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="257.0" prefWidth="426.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="268.0" prefWidth="457.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controller">
    <children>
       <TextField fx:id="username" layoutX="121.0" layoutY="103.0" prefHeight="25.0" prefWidth="250.0" />
       <Label layoutX="45.0" layoutY="30.0" prefHeight="45.0" prefWidth="142.0" text="Bine ati venit">
@@ -28,5 +28,6 @@
       <PasswordField fx:id="parola" layoutX="121.0" layoutY="141.0" prefHeight="25.0" prefWidth="250.0" />
       <Button fx:id="logare" layoutX="134.0" layoutY="191.0" mnemonicParsing="false" onAction="#LogareJurnalist" text="Logare jurnalist" />
       <Button fx:id="logareAdmin" layoutX="257.0" layoutY="191.0" mnemonicParsing="false" onAction="#LogareAdmin" prefHeight="25.0" prefWidth="99.0" text="Logare admin" />
+      <Button fx:id="cititorButton" layoutX="220.0" layoutY="229.0" mnemonicParsing="false" onAction="#Cititor" text="Cititor" />
    </children>
 </AnchorPane>

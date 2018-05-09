@@ -3,7 +3,6 @@ package View;
 import ClientManager.Client;
 import Model.ArticolEntity;
 import Model.JurnalistEntity;
-import Model.Observer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -32,8 +31,14 @@ public class JurnalistController extends Observer implements Initializable {
     @FXML
     TextArea continutArea;
 
+    Subject subject;
+
     private HashMap<String, Client> clients=new HashMap<>();
 
+    public JurnalistController(Subject subject) {
+        this.subject = subject;
+        this.subject.attach(this);
+    }
 
     @FXML
     private TableView<ArticolEntity> articolEntityTableView;
@@ -84,11 +89,12 @@ public class JurnalistController extends Observer implements Initializable {
             alert.setContentText("Opearatiunea a reusit cu succes!");
             alert.showAndWait();
         }
+        this.setItems();
     }
 
     @Override
     public void update() {
-
+        articolEntityTableView.setItems(subject.getArticolEntities());
     }
 
     @Override
@@ -104,12 +110,13 @@ public class JurnalistController extends Observer implements Initializable {
 
     public void setItems()
     {
-        articolEntityTableView.setItems(getArticles());
+        setArticles();
+        articolEntityTableView.setItems(subject.getArticolEntities());
     }
 
 
 
-    public ObservableList<ArticolEntity> getArticles()
+    public void setArticles()
     {
         ObservableList<ArticolEntity> articolEntities=FXCollections.observableArrayList();
         //articolEntities.add(new ArticolEntity(1,"Premiu","Premiu obtinut de UTCN","",""));
@@ -126,6 +133,6 @@ public class JurnalistController extends Observer implements Initializable {
         {
             articolEntities.add(articolEntity);
         }
-        return articolEntities;
+        subject.setArticolEntities(articolEntities);
     }
 }

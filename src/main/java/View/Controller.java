@@ -24,10 +24,23 @@ public class Controller {
     private TextField parola;
     @FXML private Button logareAdmin;
     @FXML private Button logare;
+    int readerNumber=0;
+    Subject subject;
+
+
+    //Client clientController=new Client(1);
+
+
+    public Controller() {
+
+        subject=new Subject();
+    }
 
     //AdminController adminController=new AdminController();
     //HashMap<Scene,Client> windows=new HashMap();
-    public void LogareAdmin(javafx.event.ActionEvent actionEvent) throws IOException {
+    public void LogareAdmin(javafx.event.ActionEvent actionEvent)  throws IOException
+
+    {
         Client client=new Client(1);
         Encrypt code= new Encrypt();
         AdminEntity adminEntity=new AdminEntity(username.getText(),code.code(parola.getText()));
@@ -107,7 +120,7 @@ public class Controller {
 
 
         try {
-            TimeUnit.MILLISECONDS.sleep(800);
+            TimeUnit.MILLISECONDS.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -149,7 +162,7 @@ public class Controller {
         if(client.getReusit().get()==9)
         {FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("View/Jurnalist.fxml"));
-            JurnalistController jurnalistController=new JurnalistController();
+            JurnalistController jurnalistController=new JurnalistController(this.subject);
             loader.setController(jurnalistController);
             jurnalistController.addClient(username.getText(),client);
             //jurnalistController.setUsernameText(username.getText());
@@ -167,5 +180,34 @@ public class Controller {
 
     }
 
+    public void Cititor(javafx.event.ActionEvent actionEvent) throws IOException
+    {
+        Client client=new Client(1);
+        //Encrypt code= new Encrypt();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getClassLoader().getResource("View/Cititor.fxml"));
+        CititorController cititorController=new CititorController(this.subject);
+        loader.setController(cititorController);
+        cititorController.addClient("cititor"+readerNumber,client);
+        //jurnalistController.setUsernameText(username.getText());
+        Parent root = loader.load();
+        loader.setRoot(root);
+        CititorController cititorController1=loader.getController();
+        Stage stage = new Stage();
+        stage.setTitle("Meniu Cititor");
+        stage.setOnCloseRequest((event) -> client.inchide());
+        Scene scene=new Scene(root);
+        stage.setScene(scene);
+        cititorController1.setUsernameText("cititor"+readerNumber);
+        cititorController1.setItems();
+        stage.show();
+        readerNumber++;
+    }
 
+
+
+
+
+
+    /**/
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="622.0" prefWidth="718.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView fx:id="articolEntityTableView" layoutX="24.0" layoutY="103.0" prefHeight="486.0" prefWidth="412.0">
+        <columns>
+          <TableColumn fx:id="idArticol" prefWidth="62.0" text="Id" />
+          <TableColumn fx:id="titluArticol" prefWidth="142.0" text="Titlu" />
+            <TableColumn fx:id="continutAbstractArticol" prefWidth="207.0" text="Abstract" />
+        </columns>
+      </TableView>
+      <Text layoutX="49.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bine ai venit">
+         <font>
+            <Font name="Comic Sans MS" size="14.0" />
+         </font>
+      </Text>
+      <Text fx:id="anonimText" layoutX="135.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Anonim">
+         <font>
+            <Font name="Comic Sans MS" size="14.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
