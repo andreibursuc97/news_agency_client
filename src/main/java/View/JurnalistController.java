@@ -14,7 +14,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 
@@ -31,6 +33,9 @@ public class JurnalistController extends Observer implements Initializable {
     @FXML
     TextArea continutArea;
 
+    @FXML
+            private ListView<String> listArticles;
+
     Subject subject;
 
     private HashMap<String, Client> clients=new HashMap<>();
@@ -38,6 +43,7 @@ public class JurnalistController extends Observer implements Initializable {
     public JurnalistController(Subject subject) {
         this.subject = subject;
         this.subject.attach(this);
+
     }
 
     @FXML
@@ -52,6 +58,7 @@ public class JurnalistController extends Observer implements Initializable {
     }
     public void setUsernameText(String text) {
         usernameText.setText(text);
+
     }
 
 
@@ -73,6 +80,12 @@ public class JurnalistController extends Observer implements Initializable {
         Client client=clients.get(usernameText.getText());
         ArticolEntity articolEntity=new ArticolEntity(titluField.getText(),abstractArea.getText(),autorField.getText(),continutArea.getText());
         client.setArticolEntity(articolEntity);
+        List<ArticolEntity> list=new ArrayList<>();
+        for(String s : listArticles.getSelectionModel().getSelectedItems())
+        {
+            list.add(new ArticolEntity(s));
+        }
+        client.setTitluArticolEntities(list);
         client.sendCommand("Inserare articol","articol");
 
         try {
@@ -95,6 +108,7 @@ public class JurnalistController extends Observer implements Initializable {
     @Override
     public void update() {
         articolEntityTableView.setItems(subject.getArticolEntities());
+        listArticles.setItems(subject.getTitleArticolEntities());
     }
 
     @Override
@@ -106,12 +120,17 @@ public class JurnalistController extends Observer implements Initializable {
         //continutAbstractArticol=new TableColumn<>("Abstract");
         continutAbstractArticol.setCellValueFactory(new PropertyValueFactory<>("AbstractArticol"));
         //articolEntityTableView.setItems(getArticles());
+        //listArticles.setCellFactory(new PropertyValueFactory<ArticolEntity.class>("Titlu"));
+        //listArticles.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
     public void setItems()
     {
         setArticles();
         articolEntityTableView.setItems(subject.getArticolEntities());
+        listArticles.setItems(subject.getTitleArticolEntities());
+        listArticles.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        //listArticles.setItems(subject.getArticolEntities());
     }
 
 
@@ -129,10 +148,13 @@ public class JurnalistController extends Observer implements Initializable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        //listArticles.setItems(FXCollections.observableArrayList());
         for(ArticolEntity articolEntity:client.getArticolEntities())
         {
             articolEntities.add(articolEntity);
         }
+
         subject.setArticolEntities(articolEntities);
     }
 }

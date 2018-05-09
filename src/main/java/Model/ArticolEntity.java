@@ -32,6 +32,10 @@ public class ArticolEntity {
         this.continut = continut;
     }
 
+    public ArticolEntity(String titlu) {
+        this.titlu = titlu;
+    }
+
     public ArticolEntity() {
     }
 

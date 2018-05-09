@@ -21,6 +21,7 @@ public class Client
     ArticolEntity articolEntity;
     JurnalistEntity jurnalistEntity;
     List<ArticolEntity> articolEntities;
+    List<ArticolEntity> titluArticolEntities;
     String comanda;
     int id;
     InetAddress ip;
@@ -44,6 +45,14 @@ public class Client
 
     public void setArticoleInruditeEntity(ArticoleInruditeEntity articoleInruditeEntity) {
         this.articoleInruditeEntity = articoleInruditeEntity;
+    }
+
+    public List<ArticolEntity> getTitluArticolEntities() {
+        return titluArticolEntities;
+    }
+
+    public void setTitluArticolEntities(List<ArticolEntity> titluArticolEntities) {
+        this.titluArticolEntities = titluArticolEntities;
     }
 
     public void setArticolEntity(ArticolEntity articolEntity) {
@@ -73,7 +82,7 @@ public class Client
             ip = InetAddress.getByName("localhost");
 
             // establish the connection with server port 5056
-            s = new Socket(ip, 8080);
+            s = new Socket(ip, 8081);
 
             // obtaining input and out streams
             dis = new DataInputStream(s.getInputStream());
@@ -102,7 +111,14 @@ public void sendCommand(String comanda,String objectType)
                 dos.writeUTF(comanda + "\n" + gson.toJson(jurnalistEntity));
                 break;
             case "articol":
-                dos.writeUTF(comanda + "\n" + gson.toJson(articolEntity));
+                /*for(String s : titluArticolEntities)
+                {
+                    System.out.println(s);
+                }*/
+
+                //System.out.println(gson.toJson(titluArticolEntities));
+
+                dos.writeUTF(comanda + "\n" + gson.toJson(articolEntity) + "\n" + gson.toJson(titluArticolEntities) );
                 break;
             default:
                 dos.writeUTF(comanda);
