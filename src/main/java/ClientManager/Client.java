@@ -21,6 +21,7 @@ public class Client
     ArticolEntity articolEntity;
     JurnalistEntity jurnalistEntity;
     List<ArticolEntity> articolEntities;
+    List<ArticolEntity> articoleInrudite;
     List<ArticolEntity> titluArticolEntities;
     String comanda;
     int id;
@@ -33,6 +34,18 @@ public class Client
 
     public void setArticolEntities(List<ArticolEntity> articolEntities) {
         this.articolEntities = articolEntities;
+    }
+
+    public ArticoleInruditeEntity getArticoleInruditeEntity() {
+        return articoleInruditeEntity;
+    }
+
+    public void setArticoleInrudite(List<ArticolEntity> articoleInrudite) {
+        this.articoleInrudite = articoleInrudite;
+    }
+
+    public List<ArticolEntity> getArticoleInrudite() {
+        return articoleInrudite;
     }
 
     public List<ArticolEntity> getArticolEntities() {

@@ -25,6 +25,8 @@ public class JurnalistController extends Observer implements Initializable {
     @FXML
     private Text usernameText;
     @FXML
+    TextField idField;
+    @FXML
     TextField titluField;
     @FXML
     TextField autorField;
@@ -51,6 +53,12 @@ public class JurnalistController extends Observer implements Initializable {
     @FXML private TableColumn<ArticolEntity,Integer> idArticol;
     @FXML private TableColumn<ArticolEntity,String> titluArticol;
     @FXML private TableColumn<ArticolEntity, String> continutAbstractArticol;
+
+    @FXML
+    private TableView<ArticolEntity> articolInruditEntityTableView;
+    @FXML private TableColumn<ArticolEntity,Integer> idArticolInrudit;
+    @FXML private TableColumn<ArticolEntity,String> titluArticolInrudit;
+    @FXML private TableColumn<ArticolEntity, String> continutAbstractArticolInrudit;
 
     public void addClient(String username,Client client)
     {
@@ -98,7 +106,32 @@ public class JurnalistController extends Observer implements Initializable {
         {
             Alert alert=new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Prelucrare date");
-            alert.setHeaderText("Adaugare de articol nou");
+            alert.setHeaderText("Adaugare de articol nou ");
+            alert.setContentText("Opearatiunea a reusit cu succes!");
+            alert.showAndWait();
+        }
+        this.setItems();
+    }
+
+    public void actualizeazaArticol(javafx.event.ActionEvent actionEvent)
+    {
+        //articolEntityTableView.getSelectionModel().clearSelection();
+        Client client=clients.get(usernameText.getText());
+        ArticolEntity articolEntity=new ArticolEntity(Integer.parseInt(idField.getText()),titluField.getText(),abstractArea.getText(),autorField.getText(),continutArea.getText());
+        client.setArticolEntity(articolEntity);
+        client.sendCommand("Update articol","articol");
+
+        try {
+            TimeUnit.MILLISECONDS.sleep(300);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if(client.getReusit().get()==11)
+        {
+            Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Prelucrare date");
+            alert.setHeaderText("Articolul a fost actualizat");
             alert.setContentText("Opearatiunea a reusit cu succes!");
             alert.showAndWait();
         }
@@ -122,6 +155,12 @@ public class JurnalistController extends Observer implements Initializable {
         //articolEntityTableView.setItems(getArticles());
         //listArticles.setCellFactory(new PropertyValueFactory<ArticolEntity.class>("Titlu"));
         //listArticles.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        idArticolInrudit.setCellValueFactory(new PropertyValueFactory<>("id"));
+        //titluArticol=new TableColumn<>("Titlu");
+        titluArticolInrudit.setCellValueFactory(new PropertyValueFactory<>("Titlu"));
+        //continutAbstractArticol=new TableColumn<>("Abstract");
+        continutAbstractArticolInrudit.setCellValueFactory(new PropertyValueFactory<>("AbstractArticol"));
+        articolEntityTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) ->selecteazaArticol());
     }
 
     public void setItems()
@@ -133,6 +172,47 @@ public class JurnalistController extends Observer implements Initializable {
         //listArticles.setItems(subject.getArticolEntities());
     }
 
+    public void selecteazaArticol()
+    {
+        ArticolEntity articolEntity=articolEntityTableView.getSelectionModel().getSelectedItem();
+        articolInruditEntityTableView.setItems(getArticlesInrudite(articolEntity));
+        //Client client=clients.get(usernameText.getText());
+        if(articolEntity!=null)
+        {
+            idField.setText(Integer.toString(articolEntity.getId()));
+            titluField.setText(articolEntity.getTitlu());
+            autorField.setText(articolEntity.getAutor());
+            abstractArea.setText(articolEntity.getAbstractArticol());
+            continutArea.setText(articolEntity.getContinut());
+        }
+        //continutArea.setText(client.getArticolEntities().get(articolEntity.getId()-1).getContinut());
+    }
+
+    public ObservableList<ArticolEntity> getArticlesInrudite(ArticolEntity articolEntity)
+    {
+        ObservableList<ArticolEntity> articolEntities=FXCollections.observableArrayList();
+        //articolEntities.add(new ArticolEntity(1,"Premiu","Premiu obtinut de UTCN","",""));
+        //articolEntities.add(new ArticolEntity(2,"Premiu 2","Premiu obtinut de UBB","",""));
+        Client client=clients.get(usernameText.getText());
+        if(articolEntity!=null) {
+            client.setArticolEntity(articolEntity);
+            client.sendCommand("Afiseaza articole inrudite", "articol");
+
+            try {
+                TimeUnit.MILLISECONDS.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            //listArticles.setItems(FXCollections.observableArrayList());
+            for (ArticolEntity articolEntity1 : client.getArticoleInrudite()) {
+                articolEntities.add(articolEntity1);
+            }
+
+            return articolEntities;
+        }
+        return null;
+    }
 
 
     public void setArticles()

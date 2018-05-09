@@ -108,10 +108,21 @@ public class ServerHandler extends Thread {
                         client.setReusit(new AtomicInteger(10));
                         break;
                     case "articole":
-                        System.out.println(vectReceived[1]);
+                        //System.out.println(vectReceived[1]);
                         client.setArticolEntities(stringToArray(vectReceived[1],ArticolEntity[].class));
-                        System.out.println(vectReceived[1]);
+                        //System.out.println(vectReceived[1]);
                         break;
+
+                    case "articoleInrudite":
+                        //System.out.println(vectReceived[1]);
+                        client.setArticoleInrudite(stringToArray(vectReceived[1],ArticolEntity[].class));
+                        //System.out.println(vectReceived[1]);
+                        break;
+                    case "Succes actualizare articol":
+                        //System.out.println("Logare reusita");
+                        client.setReusit(new AtomicInteger(11));
+                        break;
+
                     default:
 
                 }
