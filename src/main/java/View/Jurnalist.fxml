@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.HTMLEditor?>
 
-<AnchorPane prefHeight="854.0" prefWidth="1144.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="854.0" prefWidth="1217.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button fx:id="delogareButton" layoutX="186.0" layoutY="10.0" mnemonicParsing="false" onAction="#Delogare" text="Delogare" />
       <Text layoutX="39.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bine ai venit" wrappingWidth="85.224609375">
@@ -76,6 +76,7 @@
       </Label>
       <TextField fx:id="idField" layoutX="102.0" layoutY="45.0" prefHeight="25.0" prefWidth="141.0" />
       <Button fx:id="actualizeazaArticolButton" layoutX="94.0" layoutY="808.0" mnemonicParsing="false" onAction="#actualizeazaArticol" text="Actualizare articol" />
-      <HTMLEditor fx:id="htmlTextEditor" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="611.0" layoutY="62.0" prefHeight="708.0" prefWidth="494.0" />
+      <HTMLEditor fx:id="htmlTextEditor" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="611.0" layoutY="37.0" prefHeight="738.0" prefWidth="596.0" />
+      <Button fx:id="alegeImagineButton" layoutX="820.0" layoutY="796.0" mnemonicParsing="false" onAction="#chooseImage" text="Alege imagine" />
    </children>
 </AnchorPane>

@@ -5,6 +5,7 @@ import Model.ArticolEntity;
 import Model.JurnalistEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -12,8 +13,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.scene.web.HTMLEditor;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import netscape.javascript.JSException;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,6 +40,10 @@ public class JurnalistController extends Observer implements Initializable {
     @FXML
     TextArea abstractArea;
 
+    //private String path=;
+    private File file=new File("D:\\FACULTA\\AN 3\\Semestrul 2\\PS\\news_agency_client\\src\\intrarea-armatei-in-dobrogea.jpg");
+
+    String img= "<img alt=\"Image\" src=\"" + file.toURI() +  "\" />";
 
     @FXML
     HTMLEditor htmlTextEditor;
@@ -41,7 +51,7 @@ public class JurnalistController extends Observer implements Initializable {
     @FXML
             private ListView<String> listArticles;
 
-    Subject subject;
+    private Subject subject;
 
     private HashMap<String, Client> clients=new HashMap<>();
 
@@ -165,7 +175,12 @@ public class JurnalistController extends Observer implements Initializable {
         continutAbstractArticolInrudit.setCellValueFactory(new PropertyValueFactory<>("AbstractArticol"));
         articolEntityTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) ->selecteazaArticol());
         articolInruditEntityTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) ->selecteazaArticolInrudit());
+        addHTMLButton();
+        idField.setDisable(true);
+
     }
+
+
 
     public void setItems()
     {
@@ -249,5 +264,140 @@ public class JurnalistController extends Observer implements Initializable {
         }
 
         subject.setArticolEntities(articolEntities);
+    }
+
+    public void addHTMLButton()
+    {
+        Node toolNode = htmlTextEditor.lookup(".top-toolbar");
+        Node webNode = htmlTextEditor.lookup(".web-view");
+        if (toolNode instanceof ToolBar && webNode instanceof WebView) {
+            ToolBar bar = (ToolBar) toolNode;
+            WebView webView = (WebView) webNode;
+            WebEngine engine = webView.getEngine();
+
+            Button btnCaretAddImage = new Button("img");
+            btnCaretAddImage.setMinSize(40.0, 24.0);
+            btnCaretAddImage.setMaxSize(40.0, 24.0);
+
+            bar.getItems().addAll(btnCaretAddImage);
+            htmlTextEditor.setHtmlText("Bine ati venit!");
+            //data uri image
+            img =
+                    "<img alt=\"Image\" src=\"" + file.toURI() +  "\" />";
+            System.out.println(img);
+            //http://stackoverflow.com/questions/2213376/how-to-find-cursor-position-in-a-contenteditable-div
+            String jsCodeInsertHtml = "function insertHtmlAtCursor(html) {\n" +
+                    "    var range, node;\n" +
+                    "    if (window.getSelection && window.getSelection().getRangeAt) {\n" +
+                    "        range = window.getSelection().getRangeAt(0);\n" +
+                    "        node = range.createContextualFragment(html);\n" +
+                    "        range.insertNode(node);\n" +
+                    "    } else if (document.selection && document.selection.createRange) {\n" +
+                    "        document.selection.createRange().pasteHTML(html);\n" +
+                    "    }\n" +
+                    "}insertHtmlAtCursor('####html####')";
+            btnCaretAddImage.setOnAction((ActionEvent event) -> {
+                try {
+                    engine.executeScript(jsCodeInsertHtml.
+                            replace("####html####",
+                                    escapeJavaStyleString(img, true, true)));
+                } catch (JSException e) {
+                    // A JavaScript Exception Occured
+                }
+            });
+        }
+    }
+
+
+
+    private static String escapeJavaStyleString(String str,
+                                                boolean escapeSingleQuote, boolean escapeForwardSlash) {
+        StringBuilder out = new StringBuilder("");
+        if (str == null) {
+            return null;
+        }
+        int sz;
+        sz = str.length();
+        for (int i = 0; i < sz; i++) {
+            char ch = str.charAt(i);
+
+            // handle unicode
+            if (ch > 0xfff) {
+                out.append("\\u").append(hex(ch));
+            } else if (ch > 0xff) {
+                out.append("\\u0").append(hex(ch));
+            } else if (ch > 0x7f) {
+                out.append("\\u00").append(hex(ch));
+            } else if (ch < 32) {
+                switch (ch) {
+                    case '\b':
+                        out.append('\\');
+                        out.append('b');
+                        break;
+                    case '\n':
+                        out.append('\\');
+                        out.append('n');
+                        break;
+                    case '\t':
+                        out.append('\\');
+                        out.append('t');
+                        break;
+                    case '\f':
+                        out.append('\\');
+                        out.append('f');
+                        break;
+                    case '\r':
+                        out.append('\\');
+                        out.append('r');
+                        break;
+                    default:
+                        if (ch > 0xf) {
+                            out.append("\\u00").append(hex(ch));
+                        } else {
+                            out.append("\\u000").append(hex(ch));
+                        }
+                        break;
+                }
+            } else {
+                switch (ch) {
+                    case '\'':
+                        if (escapeSingleQuote) {
+                            out.append('\\');
+                        }
+                        out.append('\'');
+                        break;
+                    case '"':
+                        out.append('\\');
+                        out.append('"');
+                        break;
+                    case '\\':
+                        out.append('\\');
+                        out.append('\\');
+                        break;
+                    case '/':
+                        if (escapeForwardSlash) {
+                            out.append('\\');
+                        }
+                        out.append('/');
+                        break;
+                    default:
+                        out.append(ch);
+                        break;
+                }
+            }
+        }
+        return out.toString();
+    }
+
+    private static String hex(int i) {
+        return Integer.toHexString(i);
+    }
+
+    public void chooseImage(javafx.event.ActionEvent actionEvent)
+    {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        file=fileChooser.showOpenDialog(new Stage());
+        img= "<img alt=\"Image\" src=\"" + file.toURI() +  "\" />";
     }
 }

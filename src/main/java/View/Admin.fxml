@@ -6,9 +6,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="262.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="Delogare" layoutX="406.0" layoutY="200.0" mnemonicParsing="false" onAction="#Delogare" text="Delogare" />
       <Text layoutX="24.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Esti logat ca si" wrappingWidth="123.13671875">
          <font>
             <Font name="Comic Sans MS" size="14.0" />
@@ -45,6 +44,7 @@
                </font>
             </Text>
             <Button fx:id="adaugaJurnalist" layoutX="73.0" layoutY="202.0" mnemonicParsing="false" onAction="#adaugaJurnalist" text="Adauga jurnalist" />
+            <Button fx:id="Delogare" layoutX="85.0" layoutY="248.0" mnemonicParsing="false" onAction="#Delogare" text="Delogare" />
          </children>
       </AnchorPane>
    </children>
